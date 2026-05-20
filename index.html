@@ -20,6 +20,7 @@
           <li><a href="#contact">Kontak</a></li>
         </ul>
       </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
       <a href="#contact" class="btn btn-primary">Hubungi Kami</a>
     </div>
   </header>
@@ -367,6 +368,27 @@
         document.getElementById('form-success').style.display = 'none';
       }, 5000);
     }
+
+    // Theme toggle
+    (function () {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initial = stored || (prefersDark ? 'dark' : 'light');
+
+      function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', theme);
+      }
+
+      setTheme(initial);
+
+      btn.addEventListener('click', function () {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
+    })();
   </script>
 
 </body>
